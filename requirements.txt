@@ -1,0 +1,20 @@
+# Core Web App
+streamlit==1.39.0
+
+# LLM Integrations
+anthropic==0.34.0
+openai==1.60.0
+
+# LangChain + Orchestration
+langchain==0.3.7
+langgraph==0.2.35
+pydantic==2.9.2
+
+# RAG / Vector Handling
+sentence-transformers==3.2.1
+
+# Databricks / Spark
+pyspark==3.5.3
+
+# Environment Handling
+python-dotenv==1.0.1
