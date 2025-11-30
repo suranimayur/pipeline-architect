@@ -22,7 +22,14 @@ Pipeline Architect is a production-ready AI assistant that transforms natural la
 - **⚡ Performance Optimization** - Cost analysis, scaling strategies, and best practices
 - **🛠️ ETL Tool Integration** - Talend, Informatica, Ab Initio, DBT, and Snowflake support
 
-## ✨ Key Features
+## ✨ Key Features of Pipeline Architect
+
+### 🤖 AI Capabilities
+- **Natural Language Processing** - Understands complex pipeline requirements
+- **Multi-Agent Workflows** - Specialized agents for architecture, code, and security
+- **Contextual Memory** - Maintains conversation history for accurate responses
+- **Iterative Refinement** - Continuously improves designs based on feedback
+- **Multi-Cloud Support** - Azure, AWS, GCP, Snowflake, and Databricks expertise
 
 ### 🏗️ Core Pipeline Generation
 - **Cloud Architecture Design** - Azure Databricks, AWS Glue, GCP Dataflow with Delta Lake
