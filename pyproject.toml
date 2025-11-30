@@ -1,0 +1,240 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-data-pipeline-design-assistant"
+version = "1.0.0"
+description = "AI-powered assistant for designing end-to-end data pipelines with cloud architecture, PySpark code, IAM design, and ETL tool support"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Pipeline Architect Team", email = "team@pipelinearchitect.com"}
+]
+keywords = [
+    "data-pipeline",
+    "ai-assistant",
+    "cloud-architecture",
+    "pyspark",
+    "etl",
+    "data-engineering",
+    "langgraph",
+    "claude",
+    "llm"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Distributed Computing",
+    "Framework :: FastAPI",
+    "Framework :: Pydantic"
+]
+
+requires-python = ">=3.11"
+
+[project.urls]
+Homepage = "https://github.com/pipeline-architect/pipeline-architect"
+Documentation = "https://github.com/pipeline-architect/pipeline-architect/docs"
+Repository = "https://github.com/pipeline-architect/pipeline-architect"
+Issues = "https://github.com/pipeline-architect/pipeline-architect/issues"
+Changelog = "https://github.com/pipeline-architect/pipeline-architect/releases"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.5.0",
+    "pre-commit>=3.0.0",
+    "httpx>=0.25.0",
+    "uvicorn[standard]>=0.25.0",
+    "watchdog>=3.0.0"
+]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0",
+    "mkdocstrings>=0.20.0",
+    "mkdocs-autorefs>=0.4.0"
+]
+test = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "httpx>=0.25.0",
+    "factory-boy>=3.3.0"
+]
+deploy = [
+    "docker>=6.0.0",
+    "kubernetes>=28.1.0"
+]
+
+[project.scripts]
+pipeline-architect = "pipeline_architect.cli.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["*.md", "*.txt", "*.yml", "*.yaml", "*.json", "*.env.example"]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "UP",   # pyupgrade
+    "YTT",  # flake8-2020
+    "RUF100", # unused noqa (default off)
+    "S",    # bandit security checks
+    "BLE",  # flake8-blind-except
+    "T201", # print statements
+    "TCH",  # flake8-type-checking
+]
+ignore = [
+    "S101", # assert statements (used in tests)
+    "S104", # hardcoded bind address
+    "S105", # empty strings
+    "S106", # hardcoded password in tests
+    "S108"  # hardcoded tmp directory
+]
+
+[tool.ruff.lint.isort]
+force-single-line = true
+order-by-type = false
+known-first-party = ["pipeline_architect"]
+known-third-party = ["fastapi", "pydantic", "uvicorn", "pytest", "streamlit"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --strict-config --cov=src --cov-report=html --cov-report=term-missing"
+testpaths = ["tests"]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning"
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests"
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["*/tests/*", "*/test_*.py", "*/__init__.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "@(abc\\.)?abstractmethod",
+    "if __name__ == .__main__.:"
+]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py311,py312,flake8,black,mypy
+
+[testenv]
+deps = 
+    pytest
+    pytest-cov
+commands = pytest {posargs}
+
+[testenv:flake8]
+deps = flake8
+commands = flake8 src tests
+
+[testenv:black]
+deps = black
+commands = black --check src tests
+
+[testenv:mypy]
+deps = mypy
+commands = mypy src
+"""
+
+[tool.codespell]
+builtin = "clear,usage"
+skip = "*.pyc,*.md5"
+ignore-words-list = "organisation"
+quiet-level = 3
+
+[tool.pyproject-fmt]
+max_supported_python = "3.12"
+min_supported_python = "3.11"
+fmt_table_array = false
+format = "black"
+indent = 2
+line_ending = "lf"
+max_pyproject_length = 100
+transform = "black,ruff,docformatter"
+
+[tool.bumpver]
+current_version = "1.0.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "bump version {old_version} → {new_version}"
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    '{old_version} → {new_version}'
+]
+"src/pipeline_architect/__init__.py" = [
+    "__version__ = \"{version}\"",
+    "VERSION = {version}"
+]
