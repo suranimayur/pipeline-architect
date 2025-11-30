@@ -12,7 +12,7 @@
 
 > **Enterprise-grade AI assistant that designs end-to-end data pipelines with cloud architecture, PySpark code, IAM design, and ETL tool support**
 
-## 🚀 What is Pipeline Architect?
+## 🚀 What is Pipeline Architect? Curious ?
 
 Pipeline Architect is a production-ready AI assistant that transforms natural language pipeline descriptions into complete, enterprise-grade data pipeline designs. Built with LangGraph, FastAPI, and Anthropic's Claude, it provides:
 
