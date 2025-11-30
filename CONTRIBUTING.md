@@ -2,6 +2,10 @@
 
 Thank you for considering contributing to the AI Data Pipeline Design Assistant! We welcome contributions from everyone.
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
 ## Table of Contents
 1. [Code of Conduct](#code-of-conduct)
 2. [How to Contribute](#how-to-contribute)
